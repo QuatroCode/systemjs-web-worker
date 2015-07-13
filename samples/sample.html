@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>SystemJS Web Worker Sample</title>
+    <script src="jspm_packages/system.js"></script>
+    <script src="./config.js"></script>
+    <script>
+
+        var sample;
+        System.import('samples/js/sample').then(function(smpl) {
+             sample = smpl.default;
+            sample.construct();
+        });
+
+        var frameNum = 0;
+        function UpdateFrame(){
+            var root = document.getElementById("root");
+            root.innerText = frameNum++;
+        }
+        function Run() {
+            setInterval(UpdateFrame, 500);
+        }
+    </script>
+</head>
+<body>
+<div id="root">
+
+    <button onclick="sample.sayHI()">Say HI</button>
+    <button onclick="sample.unknownCmd()">Send unknown command</button>
+    <button onclick="sample.stop()">Stop worker</button>
+    <output id="result"></output>
+
+</div>
+</body>
+</html>
